@@ -12,10 +12,10 @@
 (defun decompress (lst &optional (c 0))
     (cond
       ((null lst) nil)
-      ((atom (car lst)) (cons (car lst) (uncomp (cdr lst))))
+      ((atom (car lst)) (cons (car lst) (decompress (cdr lst))))
       ((if (< c (cadar lst))
-        (cons (caar lst) (uncomp lst (1+ c)))
-        (uncomp (cdr lst))))))
+        (cons (caar lst) (decompress lst (1+ c)))
+        (decompress (cdr lst))))))
 
 (decompress '((1 2) (0 5) 1 (0 6))) 
 
