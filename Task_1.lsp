@@ -1,34 +1,30 @@
 ;; Task_1
 ;; Addition
+(defun addElement(lst index value) 
+    (if (= index 0) 
+        (setf lst (append (list value) lst))) 
+    (if (> index 0) 
+        (push value (cdr (nthcdr (- index 1) lst)))) 
+lst) 
 
-(print (list 78 23 9 32 1 66))
-
-(defun addElem(lst id newelem)
-    (if (= id 0)
-        (setf lst (append (list newelem) lst)))
-    (if (> id 0)
-        (push newelem (cdr (nthcdr (- id 1) lst))))
-    lst)
-  
-(addElem (78 23 9 32 1 66) 0 55)
+(addElement (list 5 34 3 1 9 2 7) 0 3)
 
 ;; Delete
-
-(defun deleteElem(lst id)
-    (append (subseq lst 0 id) (nthcdr (+ id 1) lst)))
+(defun delElement (index lst) 
+    (if lst
+    (if (equal index (car lst)) 
+        (delElement index (cdr lst)) 
+        (cons (car lst) (delElement index (cdr lst)))) 
+nil))
   
-(deleteElem (78 23 9 32 1 66) 0)
+(delElement 3 (list 7 3 1 9 9 8 2 9))
 
 ;; Find
+(defun findElem (el lst)
+    (loop
+    for element in lst
+    and position from 0
+    when (eql element el)
+        collect position))
 
-(defun findElem (lst elem)
-    (setq i 0)
-    (setq elements '())
-    (loop for x in lst
-        do (setq i (+ i 1))
-        do (if (= to-find x)
-                (setq elem (append elem (list i))))
-        )
-    elem)
-
-(print (findElem '(78 23 9 32 1 66) 9))
+(findElem 5 (list 2 5 9 11)) ;; Вызов функции

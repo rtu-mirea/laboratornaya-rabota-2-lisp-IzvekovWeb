@@ -6,14 +6,17 @@
    (if (setq tail (subseq lst len)) (compress tail)))
 )
 
-
-(defun decompress(lst)
-  (loop for elem in lst
-    if (integerp elem) collect elem
-    if (listp elem) nconc (make-list (car elem) 
-  :initial-elem (cadr elem))))
-
-
 (print (compress (list 19 19 19 25 25 25 32 32 32 44 54 66 70 70 70)))
 
-(print (decompress (list (list 11 41) 9 10 (list 33 15) (list 75 27))))
+
+(defun decompress (lst &optional (c 0))
+    (cond
+      ((null lst) nil)
+      ((atom (car lst)) (cons (car lst) (uncomp (cdr lst))))
+      ((if (< c (cadar lst))
+        (cons (caar lst) (uncomp lst (1+ c)))
+        (uncomp (cdr lst))))))
+
+(decompress '((1 2) (0 5) 1 (0 6))) 
+
+
